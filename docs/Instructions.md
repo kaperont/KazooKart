@@ -24,6 +24,14 @@ The following instructions layout some very basics of Git using VS Code. More in
 3. Once you have a new branch created, you may start editing that branch!
    * If you accidentally started editing the `master` branch, you can execute: `git stash`, and then checkout your working branch (new or existing).
 
+## Opening Cloned Project in Unity
+1. Open Unity Hub
+2. Click "Add"
+3. Navigate to Git folder and select folder `Kazoo Kart`
+   * (e.g. "C:\Users\${USER}\path\to\git_folder\Kazoo Kart\")
+4. Open newly added project in Unity Hub
+   * It will take a few minutes to open as it pulls the dependencies and creates a project module
+
 ## Pushing Your Branch to Github
 From the VS Code terminal, ensure your directory is in the git folder (KazooKart). Execute the following commands **in this order**:
 1. `git add *` : (Adds all current files to local branch)
