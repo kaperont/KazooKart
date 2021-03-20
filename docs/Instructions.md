@@ -1,4 +1,6 @@
 # Visual Studio Code
+The following instructions layout some very basics of Git using VS Code. More information on the basics of Git can be found [here](https://guides.github.com/introduction/git-handbook/). It is recommended that you make a junk Git Repo on your Github account and mess with some of the basic Git commands before doing too much here; this is obviously not required, but is highly suggested.
+
 > It is helpful to have the VS Code Explorer page open to see the directory heirarchy. This can be opened from "View > Explorer" or using "Ctrl+Shift+E"
 
 ## Clone Repository
@@ -13,11 +15,12 @@
 5. Open the newly cloned git folder (File > Open Folder > KazooKart)\
    <img src="./img/OpenFolder.PNG" width="200">
 
-## Create New Branch
+## Checking Out a Branch
 1. From the VS Code terminal opened above, execute `git branch` to view your current branch
 2. To create a new branch, execute: `git checkout -b your_branch_name`
    * To checkout an existing branch, execute: `git checkout existing_branch`
    * It is standard to name branches `feature/feature_name`
+   * When creating a new branch, the branch will be made exactly like the currently checked out branch (i.e. if you have `develop` checked out and you create a new branch called `feature/leavitt_contrib`, then the new branch `feature/leavitt_contrib` will be a replica of `develop`)
 3. Once you have a new branch created, you may start editing that branch!
    * If you accidentally started editing the `master` branch, you can execute: `git stash`, and then checkout your working branch (new or existing).
 
