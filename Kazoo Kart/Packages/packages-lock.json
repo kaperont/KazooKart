@@ -58,7 +58,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ml-agents": {
-      "version": "file:T:/School/S21/Machine Learning/Project 3/ml-agents/com.unity.ml-agents",
+      "version": "file:Z:/Documents/Cedarville/Spring 2021/Machine Learning/ml-agents/com.unity.ml-agents",
       "depth": 0,
       "source": "local",
       "dependencies": {
