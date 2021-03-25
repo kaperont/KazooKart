@@ -25,11 +25,14 @@ The following instructions layout some very basics of Git using VS Code. More in
    * If you accidentally started editing the `master` branch, you can execute: `git stash`, and then checkout your working branch (new or existing).
 
 ## Opening Cloned Project in Unity
-1. Open Unity Hub
-2. Click "Add"
-3. Navigate to Git folder and select folder `Kazoo Kart`
+1. Ensure ML-Agents Release 12 is cloned locally on your system
+2. After cloning this repo, navigate to `./Kazoo Kart/Packages` and open both `manifest.json` and `packages=lock.json`
+3. Within both files, locate the following line: `"file:T:/School/S21/Machine Learning/Project 3/ml-agents/com.unity.ml-agents"` (or something similar) and replace it with `"file:C:/local/path/to/ml-agents-release-12-repo/ml-agents/com.unity.ml-agents"`
+4. Open Unity Hub
+5. Click "Add"
+6. Navigate to this Git folder and select folder `Kazoo Kart`
    * (e.g. "C:\Users\${USER}\path\to\git_folder\Kazoo Kart\")
-4. Open newly added project in Unity Hub
+7. Open newly added project in Unity Hub
    * It will take a few minutes to open as it pulls the dependencies and creates a project module
 
 ## Pushing Your Branch to Github
