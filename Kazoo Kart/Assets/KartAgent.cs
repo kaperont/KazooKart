@@ -11,25 +11,28 @@ public class KartAgent : Agent
     // Initialize Environment variables
     Rigidbody rb;
     public Transform Target;
+    public GameObject spawn; //Ben
 
     // Initialize Agent speeds
-    public float turnSpeed = 300f;
-    public float moveSpeed = 2f;
+    public float turnSpeed = 150f;
+    public float moveSpeed = 1f;
 
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        spawn = GameObject.FindGameObjectWithTag("Spawn"); //Ben
     }
 
     // Actions at beginning of each episode
     public override void OnEpisodeBegin()
     {
-        // TO DO: Modify position of agent (different for each course)
         this.rb.angularVelocity = Vector3.zero;
         this.rb.velocity = Vector3.zero;
-        this.transform.localPosition = new Vector3(21f, 1f, 0);
+        this.transform.localPosition = spawn.transform.position; //Ben
+        this.transform.localRotation = spawn.transform.rotation; //Ben
+        
     }
 
     // Collect observations
@@ -85,6 +88,14 @@ public class KartAgent : Agent
         //        Add reward for passing through a flag
 
         MoveAgent(actionBuffers);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Wall")){
+            SetReward(-1.0f);
+            EndEpisode();
+        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)

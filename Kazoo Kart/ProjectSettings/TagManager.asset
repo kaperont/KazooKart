@@ -7,6 +7,8 @@ TagManager:
   - Flag
   - FinishFlag
   - Agent
+  - Wall
+  - Spawn
   layers:
   - Default
   - TransparentFX
