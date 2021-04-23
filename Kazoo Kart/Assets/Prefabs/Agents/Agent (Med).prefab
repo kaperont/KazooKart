@@ -85,7 +85,7 @@ MonoBehaviour:
   MaxStep: 0
   Target: {fileID: 0}
   spawn: {fileID: 0}
-  turnSpeed: 300
+  turnSpeed: 100
   moveSpeed: 2
 --- !u!114 &1291318055702334776
 MonoBehaviour:
