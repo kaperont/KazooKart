@@ -9,6 +9,7 @@ TagManager:
   - Agent
   - Wall
   - Spawn
+  - AgentButt
   layers:
   - Default
   - TransparentFX
