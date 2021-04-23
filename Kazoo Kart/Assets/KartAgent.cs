@@ -17,6 +17,8 @@ public class KartAgent : Agent
     public float turnSpeed = 150f;
     public float moveSpeed = 1f;
 
+    private Stack DEAD_FLAGS = new Stack();
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,10 +30,17 @@ public class KartAgent : Agent
     // Actions at beginning of each episode
     public override void OnEpisodeBegin()
     {
+        // Reset Agent Velocity and Position
         this.rb.angularVelocity = Vector3.zero;
         this.rb.velocity = Vector3.zero;
         this.transform.localPosition = spawn.transform.position; //Ben
         this.transform.localRotation = spawn.transform.rotation; //Ben
+
+        // Reset Flag States
+        while(DEAD_FLAGS.Count > 0){
+            GameObject f = (GameObject)DEAD_FLAGS.Pop();
+            f.SetActive(true);
+        }
         
     }
 
@@ -77,24 +86,30 @@ public class KartAgent : Agent
     {
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, Target.localPosition);
 
-        // TO DO: Broken!!!!! It only registers as hitting the target if it hits the center of the finish flag
-        if(distanceToTarget < 1.42f)
-        {
-            SetReward(1.0f);
-            EndEpisode();
-        }
-
-        // TO DO: Add EndEpisode for touching walls
-        //        Add reward for passing through a flag
-
         MoveAgent(actionBuffers);
     }
 
     void OnTriggerEnter(Collider other)
     {
+        // Punish if Kazoo hits wall
         if(other.gameObject.CompareTag("Wall")){
             SetReward(-1.0f);
             EndEpisode();
+        }
+        // Reward Kazoo if it finishes
+        else if(other.gameObject.CompareTag("FinishFlag")){
+            SetReward(1.0f);
+            EndEpisode();
+        }
+    }
+
+    void OnTriggerExit(Collider other){
+        // Disable Trigger on flag if Kazoo has passed through
+        if(other.gameObject.CompareTag("Flag")){
+            SetReward(0.3f);
+            DEAD_FLAGS.Push(other.gameObject);
+            other.gameObject.SetActive(false);
+            Debug.Log("BUTT PASSED THROUGH");
         }
     }
 
@@ -104,7 +119,7 @@ public class KartAgent : Agent
         continuousActionsOut[0] = 0;
         continuousActionsOut[1] = 0;
         continuousActionsOut[2] = 0;
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A))
         {
             continuousActionsOut[2] = 1;
         }
@@ -112,7 +127,7 @@ public class KartAgent : Agent
         {
             continuousActionsOut[0] = 1;
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.D))
         {
             continuousActionsOut[2] = -1;
         }
