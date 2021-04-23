@@ -1655,6 +1655,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 255372205718663298, guid: e7e6d32674119c947b190f341e7919c9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3016653183374776333, guid: e7e6d32674119c947b190f341e7919c9,
         type: 3}
       propertyPath: m_Name
@@ -4534,6 +4539,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2689750531454136335, guid: 86cf3c41b260fbf438987438e65f2716,
         type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689750531454136335, guid: 86cf3c41b260fbf438987438e65f2716,
+        type: 3}
       propertyPath: m_BehaviorName
       value: KazooKart
       objectReference: {fileID: 0}
@@ -4609,9 +4619,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7673710460680826719, guid: 86cf3c41b260fbf438987438e65f2716,
         type: 3}
+      propertyPath: spawn
+      value: 
+      objectReference: {fileID: 1329955584}
+    - target: {fileID: 7673710460680826719, guid: 86cf3c41b260fbf438987438e65f2716,
+        type: 3}
       propertyPath: Target
       value: 
       objectReference: {fileID: 2029136070}
+    - target: {fileID: 7689409902845942012, guid: 86cf3c41b260fbf438987438e65f2716,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86cf3c41b260fbf438987438e65f2716, type: 3}
 --- !u!4 &5077829102916406527 stripped

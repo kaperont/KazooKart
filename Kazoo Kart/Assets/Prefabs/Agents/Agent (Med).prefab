@@ -84,7 +84,8 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   Target: {fileID: 0}
-  turnSpeed: 300
+  spawn: {fileID: 0}
+  turnSpeed: 100
   moveSpeed: 2
 --- !u!114 &1291318055702334776
 MonoBehaviour:
