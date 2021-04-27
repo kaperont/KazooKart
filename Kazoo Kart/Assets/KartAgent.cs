@@ -14,10 +14,12 @@ public class KartAgent : Agent
     public GameObject spawn; //Ben
 
     // Initialize Agent speeds
-    public float turnSpeed = 150f;
+    public float turnSpeed = 1f;
     public float moveSpeed = 1f;
 
     private Stack DEAD_FLAGS = new Stack();
+    private int num_flags = 0;
+    private int num_flags_collected = 0;
 
 
     // Start is called before the first frame update
@@ -30,6 +32,11 @@ public class KartAgent : Agent
     // Actions at beginning of each episode
     public override void OnEpisodeBegin()
     {
+
+        // Reset number of flags and number of collected flags
+        num_flags = 0;
+        num_flags_collected = 0;
+
         // Reset Agent Velocity and Position
         this.rb.angularVelocity = Vector3.zero;
         this.rb.velocity = Vector3.zero;
@@ -40,6 +47,12 @@ public class KartAgent : Agent
         while(DEAD_FLAGS.Count > 0){
             GameObject f = (GameObject)DEAD_FLAGS.Pop();
             f.SetActive(true);
+        }
+
+        // Reinitialize number of flags
+        GameObject[] flags = GameObject.FindGameObjectsWithTag("Flag");
+        if(flags.Length > 0){
+            num_flags = flags.Length;
         }
         
     }
@@ -89,6 +102,10 @@ public class KartAgent : Agent
         MoveAgent(actionBuffers);
     }
 
+    void FixedUpdate(){
+        AddReward(-0.0001f);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         // Punish if Kazoo hits wall
@@ -106,10 +123,25 @@ public class KartAgent : Agent
     void OnTriggerExit(Collider other){
         // Disable Trigger on flag if Kazoo has passed through
         if(other.gameObject.CompareTag("Flag")){
-            SetReward(0.3f);
+
+            num_flags_collected++;
+            AddReward((float)(((num_flags_collected) / ((num_flags*(num_flags + 1)) / (2))) + 
+                        (0.1)*((num_flags_collected) / ((num_flags*(num_flags + 1)) / (2))))
+            );
+
             DEAD_FLAGS.Push(other.gameObject);
             other.gameObject.SetActive(false);
             Debug.Log("BUTT PASSED THROUGH");
+        }
+    }
+
+    void OnCollisionEnter(Collision collision){
+        if(collision.gameObject.CompareTag("ForbiddenGround")){
+            EndEpisode();
+        }
+        else if (collision.gameObject.CompareTag("Wall")){
+            SetReward(-1.0f);
+            EndEpisode();
         }
     }
 
