@@ -99,6 +99,12 @@ public class KartAgent : Agent
     {
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, Target.localPosition);
 
+        if (this.transform.localPosition.y < 0)
+        {
+            SetReward(-1.0f);
+            EndEpisode();
+        }
+
         MoveAgent(actionBuffers);
     }
 
@@ -125,9 +131,7 @@ public class KartAgent : Agent
         if(other.gameObject.CompareTag("Flag")){
 
             num_flags_collected++;
-            AddReward((float)(((num_flags_collected) / ((num_flags*(num_flags + 1)) / (2))) + 
-                        (0.1)*((num_flags_collected) / ((num_flags*(num_flags + 1)) / (2))))
-            );
+            AddReward(0.5f);
 
             DEAD_FLAGS.Push(other.gameObject);
             other.gameObject.SetActive(false);
