@@ -14,10 +14,12 @@ public class KartAgent : Agent
     public GameObject spawn; //Ben
 
     // Initialize Agent speeds
-    public float turnSpeed = 150f;
+    public float turnSpeed = 1f;
     public float moveSpeed = 1f;
 
     private Stack DEAD_FLAGS = new Stack();
+    private int num_flags = 0;
+    private int num_flags_collected = 0;
 
 
     // Start is called before the first frame update
@@ -30,6 +32,11 @@ public class KartAgent : Agent
     // Actions at beginning of each episode
     public override void OnEpisodeBegin()
     {
+
+        // Reset number of flags and number of collected flags
+        num_flags = 0;
+        num_flags_collected = 0;
+
         // Reset Agent Velocity and Position
         this.rb.angularVelocity = Vector3.zero;
         this.rb.velocity = Vector3.zero;
@@ -40,6 +47,12 @@ public class KartAgent : Agent
         while(DEAD_FLAGS.Count > 0){
             GameObject f = (GameObject)DEAD_FLAGS.Pop();
             f.SetActive(true);
+        }
+
+        // Reinitialize number of flags
+        GameObject[] flags = GameObject.FindGameObjectsWithTag("Flag");
+        if(flags.Length > 0){
+            num_flags = flags.Length;
         }
         
     }
@@ -86,7 +99,17 @@ public class KartAgent : Agent
     {
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, Target.localPosition);
 
+        if (this.transform.localPosition.y < 0)
+        {
+            SetReward(-1.0f);
+            EndEpisode();
+        }
+
         MoveAgent(actionBuffers);
+    }
+
+    void FixedUpdate(){
+        AddReward(-0.001f);
     }
 
     void OnTriggerEnter(Collider other)
@@ -98,7 +121,7 @@ public class KartAgent : Agent
         }
         // Reward Kazoo if it finishes
         else if(other.gameObject.CompareTag("FinishFlag")){
-            SetReward(1.0f);
+            SetReward(100.0f);
             EndEpisode();
         }
     }
@@ -106,10 +129,23 @@ public class KartAgent : Agent
     void OnTriggerExit(Collider other){
         // Disable Trigger on flag if Kazoo has passed through
         if(other.gameObject.CompareTag("Flag")){
-            SetReward(0.3f);
+
+            num_flags_collected++;
+            AddReward(1.5f);
+
             DEAD_FLAGS.Push(other.gameObject);
             other.gameObject.SetActive(false);
             Debug.Log("BUTT PASSED THROUGH");
+        }
+    }
+
+    void OnCollisionEnter(Collision collision){
+        if(collision.gameObject.CompareTag("ForbiddenGround")){
+            EndEpisode();
+        }
+        else if (collision.gameObject.CompareTag("Wall")){
+            SetReward(-1.0f);
+            EndEpisode();
         }
     }
 
