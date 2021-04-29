@@ -26870,6 +26870,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2689750531454136335, guid: 86cf3c41b260fbf438987438e65f2716,
         type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 40071afc9c1ef504590181ffe5c6f971,
+        type: 3}
+    - target: {fileID: 2689750531454136335, guid: 86cf3c41b260fbf438987438e65f2716,
+        type: 3}
       propertyPath: m_BehaviorName
       value: KazooKart
       objectReference: {fileID: 0}
@@ -26877,6 +26883,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BehaviorType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689750531454136335, guid: 86cf3c41b260fbf438987438e65f2716,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689750531454136335, guid: 86cf3c41b260fbf438987438e65f2716,
+        type: 3}
+      propertyPath: m_BrainParameters.NumStackedVectorObservations
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2689750531454136335, guid: 86cf3c41b260fbf438987438e65f2716,
         type: 3}

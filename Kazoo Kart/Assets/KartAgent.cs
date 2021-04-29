@@ -109,7 +109,7 @@ public class KartAgent : Agent
     }
 
     void FixedUpdate(){
-        AddReward(-0.0001f);
+        AddReward(-0.001f);
     }
 
     void OnTriggerEnter(Collider other)
@@ -121,7 +121,7 @@ public class KartAgent : Agent
         }
         // Reward Kazoo if it finishes
         else if(other.gameObject.CompareTag("FinishFlag")){
-            SetReward(1.0f);
+            SetReward(100.0f);
             EndEpisode();
         }
     }
@@ -131,7 +131,7 @@ public class KartAgent : Agent
         if(other.gameObject.CompareTag("Flag")){
 
             num_flags_collected++;
-            AddReward(0.5f);
+            AddReward(1.5f);
 
             DEAD_FLAGS.Push(other.gameObject);
             other.gameObject.SetActive(false);
